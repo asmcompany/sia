@@ -1,0 +1,157 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+
+
+
+{% comment %} ===== heading image of the page ====== {% endcomment %}
+{% block header_image %}
+    {% include 'include/header_title_image.html' %}
+{% endblock header_image %}
+
+{% block content %}
+
+{% comment %} ===== list of products body ========== {% endcomment %}
+<div class="bg0 p-t-85 p-b-95">
+		<div class="container">
+			<div class="flex-w flex-r-m p-b-45 flex-row-rev">
+				<div class="flex-w flex-m p-tb-8">
+					<div class="rs1-select2 bg0 size-w-52 bo-all-1 bocl15 m-tb-7 m-r-15">
+						<select class="js-select2" name="sort">
+							<option>Sort by popularity</option>
+							<option>Sort by best sell</option>
+							<option>Sort by special</option>
+						</select>
+						<div class="dropDownSelect2"></div>
+					</div>
+
+					<div class="flex-w flex-m m-tb-7">
+						<button class="dis-block lh-00 pos-relative how-icon1 m-r-15 menu-active js-show-list">
+							<img class="icon-main trans-04" src="{% static 'images/icons/icon-menu-list.png' %}" alt="ICON">
+							<img class="ab-t-l icon-hov trans-04" src="{% static 'images/icons/icon-menu-list1.png' %}" alt="ICON">
+						</button>
+
+						<button class="dis-block lh-00 pos-relative how-icon1 js-show-grid">
+							<img class="icon-main trans-04" src="{% static 'images/icons/icon-grid.png' %}" alt="ICON">
+							<img class="ab-t-l icon-hov trans-04" src="{% static 'images/icons/icon-grid1.png' %}" alt="ICON">
+						</button>
+					</div>
+				</div>
+
+				<span class="txt-s-101 cl9 m-r-30 size-w-53">
+					Showing 1–12 of 23 results
+				</span>
+			</div>
+
+			<!-- Shop grid -->
+			<div class="shop-grid dis-none">
+				<div class="row">
+					
+                    {% for product in products %}
+                        <!-- - -->
+                        <div class="col-sm-6 col-md-4 col-lg-3 p-b-30">
+                            <!-- Block1 -->
+                            <div class="block1">
+                                <div class="block1-bg wrap-pic-w bo-all-1 bocl12 hov4 trans-04">
+                                    <img src="{{product.image.url}}" alt="IMG">
+
+                                    <div class="block1-content flex-col-c-m p-b-46">
+                                        <a href="{% url 'product_detail_view_page' product.slug %}" class="txt-m-103 cl3 txt-center hov-cl10 trans-04 js-name-b1">
+                                            {{product.title}}
+                                        </a>
+
+                                        <span class="block1-content-more txt-m-104 cl9 p-t-21 trans-04">
+                                            {{product.price}}$
+                                        </span>
+
+                                        <div class="block1-wrap-icon flex-c-m flex-w trans-05">
+                                            {% comment %} ==icon== view the product {% endcomment %}
+                                            <a href="{% url 'product_detail_view_page' product.slug %}" class="block1-icon flex-c-m wrap-pic-max-w">
+                                                <img src="{% static 'images/icons/icon-view.png' %}" alt="ICON">
+                                            </a>
+                                            {% comment %} ==icon== add to cart  {% endcomment %}
+                                            <a href="#" class="block1-icon flex-c-m wrap-pic-max-w js-addcart-b1">
+                                                <img src="{% static 'images/icons/icon-cart.png' %}" alt="ICON">
+                                            </a>
+                                            {% comment %} ==icon== wishlist {% endcomment %}
+                                            <a href="wishlist.html" class="block1-icon flex-c-m wrap-pic-max-w js-addwish-b1">
+                                                <img class="icon-addwish-b1" src="{% static 'images/icons/icon-heart.png' %}" alt="ICON">
+                                                <img class="icon-addedwish-b1" src="{% static 'images/icons/icon-heart2.png' %}" alt="ICON">
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+				</div>
+			</div>
+
+			<!-- Shop list -->
+			<div class="shop-list">
+                {% for product in products %}
+                    <div class="row p-b-30">
+                        <div class="col-sm-5 col-md-4 col-lg-3">
+                            <a href="{% url 'product_detail_view_page' product.slug %}" class="wrap-pic-w bo-all-1 bocl12 hov8 trans-04">
+                                <img src="{{product.image.url}}" alt="PRODUCT">
+                            </a>
+                        </div>
+
+                        <div class="col-sm-7 col-md-8 col-lg-9">
+                            <div class="p-t-5 p-b-20">
+                                <div class="flex-w flex-sb-m">
+                                    <a href="{% url 'product_detail_view_page' product.slug %}" class="txt-m-120 cl3 hov-cl10 trans-04 m-r-20 js-name1">
+                                        {{product.title}}
+                                    </a>
+
+                                    <a href="wishlist.html" class="lh-00 pos-relative how-icon1 m-tb-15 js-addwish1">
+                                        <img class="icon-main trans-04" src="{% static 'images/icons/icon-heart-color.png' %}" alt="ICON">
+                                        <img class="ab-t-l icon-hov trans-04" src="{% static 'images/icons/icon-heart-color2.png' %}" alt="ICON">
+                                    </a>
+                                </div>
+
+                                <span class="txt-m-117 cl9">
+                                    {{product.price}}$
+                                </span>
+
+                                <p class="txt-s-101 cl6 p-t-18">
+                                    {{product.caption | linebreaks}}
+                                </p>
+
+                                <div class="flex-w p-t-29">
+                                    <button class="flex-c-m txt-s-103 cl0 bg10 size-a-2 hov-btn2 trans-04 js-addcart1">
+                                        Add to cart
+                                    </button>
+                                </div>	
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+				
+			</div>
+
+			<!-- Pagination -->
+			<div class="flex-w flex-c-m p-t-47">
+				<a href="#" class="flex-c-m txt-s-115 cl6 size-a-23 bo-all-1 bocl15 hov-btn1 trans-04 m-all-3 active-pagi1">
+					1
+				</a>
+
+				<a href="#" class="flex-c-m txt-s-115 cl6 size-a-23 bo-all-1 bocl15 hov-btn1 trans-04 m-all-3">
+					2
+				</a>
+
+				<a href="#" class="flex-c-m txt-s-115 cl6 size-a-24 how-btn1 bo-all-1 bocl15 hov-btn1 trans-04 m-all-3 p-b-1">
+					Next
+					<span class="lnr lnr-chevron-right m-t-3 m-l-7"></span>
+					<span class="lnr lnr-chevron-right m-t-3"></span>
+				</a>
+			</div>
+		</div>
+	</div>
+{% endblock content %}
+
+
+
+
+{% block script %}
+{% endblock script %}

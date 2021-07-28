@@ -1,0 +1,48 @@
+{% load static %}
+{% with request.user.get_user_all_ordered_items as user_orders %}
+                <div class="wrap-cart-header h-full flex-m m-l-5 menu-click">
+					<div class="icon-header-item flex-c-m trans-04 icon-header-noti" data-notify="{{user_orders.count}}">
+						<img src="{% static 'images/icons/icon-cart-2.png' %}" alt="CART">
+					</div>
+
+					<div class="cart-header menu-click-child trans-04">
+						<div class="bo-b-1 bocl15">
+
+							<!-- cart header item -->
+                            {% for order in user_orders %}
+                                <div class="flex-w flex-str m-b-25">
+                                    <div class="size-w-15 flex-w flex-t">
+                                        <a href="product-single.html" class="wrap-pic-w bo-all-1 bocl12 size-w-16 hov3 trans-04 m-r-14">
+                                            <img src="{{order.orderd_item.image.url}}" alt="PRODUCT">
+                                        </a>
+
+                                        <div class="size-w-17 flex-col-l">
+                                            <a href="product-single.html" class="txt-s-108 cl3 hov-cl10 trans-04">
+                                                {{order.oreded_item.title}}
+                                            </a>
+
+                                            <span class="txt-s-101 cl9">
+                                                {{order.orderd_item_price}}$
+                                            </span>
+
+                                            <span class="txt-s-109 cl12">
+                                                x{{order.orderd_item_count}}
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="size-w-14 flex-b">
+                                        <button class="lh-10">
+                                            <img src="{% static 'images/icons/icon-close.png' %}" alt="CLOSE">
+                                        </button>
+                                    </div>
+                                </div>
+                            {% endfor %}
+						</div>
+
+						<a href="checkout.html" class="flex-c-m size-a-8 bg10 txt-s-105 cl13 hov-btn2 trans-04">
+							check out
+						</a>	
+					</div>
+				</div>
+{% endwith %}

@@ -1,0 +1,11 @@
+*.pyc
+__pycache__/
+db.sqlite3
+*.env
+RAW_TEMPLATES/
+storage/
+.vscode
+*.bat
+Thumbs.db
+testpy.py
+migrations

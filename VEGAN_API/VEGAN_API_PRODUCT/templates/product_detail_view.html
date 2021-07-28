@@ -1,0 +1,91 @@
+
+{% block content %}
+<h1>comment form</h1>
+<form action="" method="post" name="comment-form">
+    {% csrf_token %}
+    {% for item in comment_form %}
+        <h2> {{item}} </h2>
+    {% endfor %}
+    <br>
+    <button type="submit">OK</button>
+</form>
+<br><hr>
+
+<h1>order form</h1>
+<form action="{% url 'add_to_cart_page' %}" method="post", name="add-to-cart-form">
+    {% csrf_token %}
+
+    {{order_form.orderd_item}} 
+
+    <br><br>
+    {{order_form.orderd_item_count.label}}
+    {{order_form.orderd_item_count}}
+    {{order_form.orderd_item_count.errors}}
+    <br><br>
+
+    {{order_form.orderd_item_price}}
+
+    <br><br>
+    <br>
+    
+    {% comment %} 
+    ==========================================================
+    work around the fact that "add_to_cart" View cant be @login_required 
+    because it gets the order info from POST requests 
+    ==========================================================
+    {% endcomment %}
+    {% if request.user.is_authenticated %}
+    <button type="submit">OK</button>
+    {% else %}
+    <a href="{% url 'login_register_page' %}?next={{request.path}}">OK</a>
+    {% endif %}
+
+
+</form>
+<br><hr>
+
+<h1>gallery</h1>
+{% for item in gallery %}
+    <img width="200px" src='{{item.pic.url}}'>
+{% endfor %}
+
+<br><hr>
+<h1>comment</h1>
+{% for item in comments %}
+    <h2> {{item}} </h2>
+{% endfor %}
+
+<br><hr>
+<h1>tag</h1>
+{% for item in tags %}
+    <h2> {{item}} </h2>
+{% endfor %}
+<br><hr><br><hr>
+
+
+<br><hr>
+<h1>tag</h1>
+{% for item in tags %}
+    <h2> {{item}} </h2>
+{% endfor %}
+<br><hr><br><hr>
+
+
+
+
+
+{% endblock content %}
+
+
+
+{% block script %}
+    <script>
+        addToCartForm = document.querySelector('[name=add-to-cart-form]');
+        addToCartForm.addEventListener('submit', function(e){
+            // e.preventDefault()
+            
+            
+        });
+    </script>
+{% endblock script %}
+

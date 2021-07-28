@@ -1,0 +1,64 @@
+{% load static %}
+{% with request.user.get_user_all_ordered_items as user_orders %}
+
+                    <div class="wrap-cart-header h-full flex-m m-l-10 menu-click">
+                        <div class="icon-header-item flex-c-m trans-04 icon-header-noti" data-notify="{{user_orders.count}}">
+                            <img src="{% static 'images/icons/icon-cart-3.png' %}" alt="CART">
+                        </div>
+
+                        <div class="cart-header menu-click-child trans-04">
+                            <div class="bo-b-1 bocl15">
+                                <div class="size-h-2 js-pscroll m-r--15 p-r-15 ps">
+
+
+                                    {% for order in user_orders %}
+                                        <!-- cart header item -->
+                                        <div class="flex-w flex-str m-b-25">
+                                            <div class="size-w-15 flex-w flex-t">
+                                                <a href="{% url 'product_detail_view_page' order.orderd_item.slug %}" class="wrap-pic-w bo-all-1 bocl12 size-w-16 hov3 trans-04 m-r-14">
+                                                    <img src="{{order.orderd_item.image.url}}" alt="PRODUCT">
+                                                </a>
+
+                                                <div class="size-w-17 flex-col-l">
+                                                    <a href="{% url 'product_detail_view_page' order.orderd_item.slug %}" class="txt-s-108 cl3 hov-cl10 trans-04">
+                                                        {{order.orderd_item.title}}
+                                                    </a>
+
+                                                    <span class="txt-s-101 cl9">
+                                                        {{order.orderd_item_price}}$
+                                                    </span>
+
+                                                    <span class="txt-s-109 cl12">
+                                                        x{{order.orderd_item_count}}
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                            <div class="size-w-14 flex-b">
+                                                <form action="{% url 'remove_from_cart_page' %}" method="POST">
+                                                    {% csrf_token %}
+                                                    <input type="hidden" name="order_id" value="{{order.encrypt_order_detail_id}}">
+                                                    <button class="lh-10" type="submit">
+                                                        {% comment %} this is for removing items from Cart from header popup {% endcomment %}
+                                                        <img src="{% static 'images/icons/icon-close.png' %}" alt="CLOSE">
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    <br>
+                                    {% endfor %}
+                                <div class="ps__rail-x"><div class="ps__thumb-x" tabindex="0"></div></div><div class="ps__rail-y"><div class="ps__thumb-y" tabindex="0"></div></div></div>
+                                
+                            </div>
+                            
+                            
+                            <a href="#" class="flex-c-m size-a-8 bg10 txt-s-105 cl13 hov-btn2 trans-04 m-b-5">
+                                CHECKOUT
+                            </a>	
+                            
+                            <a href="{% url 'dashbord_page' %}" class="flex-c-m size-a-8 bg10 txt-s-105 cl13 hov-btn2 trans-04">
+                                CART
+                            </a>	
+                        </div>
+                    </div>
+{% endwith %}

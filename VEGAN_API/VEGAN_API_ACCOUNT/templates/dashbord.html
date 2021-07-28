@@ -1,0 +1,312 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="bg0 p-t-95 p-b-70">
+
+		<div class="container">
+			<!-- Tab03 -->
+			<div class="tab03">
+				<div class="row">
+					<div class="col-md-3 col-lg-2 p-b-30">
+						<!-- Nav tabs -->
+						<ul class="nav nav-tabs" role="tablist">
+							<li class="nav-item p-b-16">
+								<a class="nav-link" data-toggle="tab" href="#dashboard" role="tab" aria-expanded="false">Dashboard</a>
+							</li>
+
+							<li class="nav-item p-b-16">
+								<a class="nav-link" data-toggle="tab" href="#account-info" role="tab" aria-expanded="true">Account info</a>
+							</li>
+
+							<li class="nav-item p-b-16">
+								<a class="nav-link active" data-toggle="tab" href="#cart" role="tab" aria-expanded="true">CART</a>
+							</li>
+
+							<li class="nav-item p-b-16">
+								<a class="nav-link" href="{% url 'logout_page' %}">Logout</a>
+							</li>
+						</ul>
+					</div>
+						
+					<div class="col-md-9 col-lg-10 p-b-30">
+						<!-- Tab panes -->
+						<div class="tab-content p-l-70 p-l-0-lg">
+							<!-- - -->
+							<div class="tab-pane fade" id="dashboard" role="tabpanel" aria-expanded="false">
+								<p class="txt-s-101 cl6 p-b-18">
+									Hello <span class="txt-s-108">hienhtt3302</span> (not <span class="txt-s-108">hienhtt3302</span>? <a href="#" class="txt-s-101 cl6 hov-cl10">Sign out</a>)
+								</p>
+
+								<p>
+									From your account dashboard you can view your recent orders, manage your shipping and billing addresses and edit your password and account details.
+								</p>
+							</div>
+
+							<!-- - -->
+							<div class="tab-pane fade" id="addresses" role="tabpanel" aria-expanded="false">
+								<p class="txt-s-101 cl6">
+									The following addresses will be used on the checkout page by default.
+								</p>
+
+								<div class="flex-w flex-sb p-t-37">
+									<div class="size-w-63 flex-t w-full-sm p-b-35">
+										<div class="size-w-53 p-r-30">
+											<h5 class="txt-m-109 cl3 p-b-7">
+												Billing address
+											</h5>
+
+											<p class="txt-s-101 cl6">
+												You have not set up this type of address yet.
+											</p>
+										</div>
+
+										<a href="#" class="txt-s-115 cl10 hov12 hov-cl10 p-t-6">
+											Edit
+										</a>
+									</div>
+
+									<div class="size-w-63 flex-t w-full-sm p-b-35">
+										<div class="size-w-53 p-r-30">
+											<h5 class="txt-m-109 cl3 p-b-7">
+												Shipping address
+											</h5>
+
+											<p class="txt-s-101 cl6">
+												You have not set up this type of address yet.
+											</p>
+										</div>
+
+										<a href="#" class="txt-s-115 cl10 hov12 hov-cl10 p-t-6">
+											Edit
+										</a>
+									</div>
+								</div>
+							</div>
+							<!-- - -->
+							<div class="tab-pane fade active show" id="cart" role="tabpanel" aria-expanded="false">
+								
+								
+								<form method="POST" action="/cart/proceed/">
+								{% csrf_token %}
+									<div class="wrap-table-shopping-cart">
+										<table class="table-shopping-cart">
+
+											<tbody><tr class="table_head bg12">
+												<th class="column-1 p-l-30">Product</th>
+												<th class="column-2">Price</th>
+												<th class="column-3">Quantity</th>
+												<th class="column-4">Total</th>
+											</tr>
+
+											{% for order in user_orders %}
+												<tr class="table_row">
+													<td class="column-1">
+														<div class="flex-w flex-m">
+															<div class="wrap-pic-w size-w-50 bo-all-1 bocl12 m-r-30">
+																<img src="{{order.orderd_item.image.url}}" alt="IMG">
+															</div>
+
+															<span>
+																{{order.orderd_item.title}}
+															</span>
+														</div>
+													</td>
+													<td class="column-2">
+														$ {{order.orderd_item_price}}
+													</td>
+													<td class="column-3">
+														<div class="wrap-num-product flex-w flex-m bg12 p-rl-10">
+															<div class="btn-num-product-down flex-c-m fs-29"></div>
+
+															<input class="txt-m-102 cl6 txt-center num-product" type="number" name="{{order.pk}}" value="{{order.orderd_item_count}}">
+
+															<div class="btn-num-product-up flex-c-m fs-16"></div>
+														</div>
+													</td>
+													<td class="column-4">
+														<div class="flex-w flex-sb-m">
+															<span>
+																{{order.orderd_item_price}}$
+															</span>
+
+															<div class="fs-15 hov-cl10 pointer">
+																<span class="lnr lnr-cross"></span>
+															</div>
+														</div>
+													</td>
+												</tr>
+											{% endfor %}
+											
+										</tbody></table>
+									</div>
+
+									<div class="flex-col-l p-t-68">
+										<span class="txt-m-123 cl3 p-b-18">
+											CART TOTALS
+										</span>
+										
+										<div class="flex-w flex-m bo-b-1 bocl15 w-full p-tb-18">
+											<span class="size-w-58 txt-m-109 cl3">
+												Subtotal
+											</span>
+
+											<span class="size-w-59 txt-m-104 cl6">
+												{{cart_subtotal}}$
+											</span>
+										</div>
+
+										<div class="flex-w flex-m bo-b-1 bocl15 w-full p-tb-18">
+											<span class="size-w-58 txt-m-109 cl3">
+												TAX
+											</span>
+
+											<span class="size-w-59 txt-m-104 cl6">
+												+ %18
+											
+											</span>
+										</div>
+
+										<div class="flex-w flex-m bo-b-1 bocl15 w-full p-tb-18">
+											<span class="size-w-58 txt-m-109 cl3">
+												POST
+											</span>
+
+											<span class="size-w-59 txt-m-104 cl6">
+												+ 30000
+											
+											</span>
+										</div>
+
+										<div class="flex-w flex-m bo-b-1 bocl15 w-full p-tb-18">
+											<span class="size-w-58 txt-m-109 cl3">
+												Total
+											</span>
+
+											<span class="size-w-59 txt-m-104 cl10">
+												{{cart_total}}$
+											</span>
+										</div>
+
+										<button class="flex-c-m txt-s-105 cl0 bg10 size-a-34 hov-btn2 trans-04 p-rl-10 m-t-43">
+											proceed to checkout
+										</button>
+									</div>
+								</form>
+								
+								
+
+							</div>
+
+							<!-- - -->
+							<div class="tab-pane fade" id="account-info" role="tabpanel" aria-expanded="true">
+								<form method="POST">
+									{% csrf_token %}
+									{% with info_form as f %}
+									<div class="row">
+
+
+										<div class="col-sm-6 p-b-23">
+											<div>
+												<div class="txt-s-101 cl6 p-b-10">
+													{{f.first_name.label}} <span class="cl12">*</span>
+												</div>
+
+												{{f.first_name}}
+
+												{% for error in f.first_name.errors %}
+													<span class="cl12 p-r-50 ltr">{{error}}</span><br>
+												{% endfor %}
+												
+											</div>
+										</div>
+
+
+										<div class="col-sm-6 p-b-23">
+											<div>
+												<div class="txt-s-101 cl6 p-b-10">
+													{{f.last_name.label}} <span class="cl12">*</span>
+												</div>
+
+												{{f.last_name}}
+												{% for error in f.last_name.errors %}
+													<span class="cl12 p-r-50 ltr">{{error}}</span><br>
+												{% endfor %}
+											</div>
+										</div>
+
+
+										<div class="col-sm-6 p-b-23">
+											<div>
+												<div class="txt-s-101 cl6 p-b-10">
+													{{f.email.label}}
+												</div>
+
+												{{f.email}}
+												{% for error in f.email.errors %}
+													<span class="cl12 p-r-50 ltr">{{error}}</span><br>
+												{% endfor %}
+											</div>
+										</div>
+
+
+										<div class="col-sm-6 p-b-23">
+											<div>
+												<div class="txt-s-101 cl6 p-b-10">
+													{{f.postal_code.label}}
+												</div>
+
+												{{f.postal_code}}
+												{% for error in f.postal_code.errors %}
+													<span class="cl12 p-r-50 ltr">{{error}}</span><br>
+												{% endfor %}
+											</div>
+										</div>
+										
+
+										<div class="col-sm-6 p-b-23">
+											<div>
+												<div class="txt-s-101 cl6 p-b-10">
+													{{f.phone_number.label}}
+												</div>
+
+												{{f.phone_number}}
+												{% for error in f.phone_number.errors %}
+													<span class="cl12 p-r-50 ltr">{{error}}</span><br>
+												{% endfor %}
+											</div>
+										</div>
+										
+
+
+										<div class="col-12 p-b-23">
+											<div>
+												<div class="txt-s-101 cl6 p-b-10">
+													{{f.adress.label}}
+												</div>
+
+												{{f.adress}}
+												{% for error in f.adress.errors %}
+													<span class="cl12 p-r-50 ltr">{{error}}</span><br>
+												{% endfor %}
+											</div>
+										</div>
+										
+										<div class="flex-w p-rl-15 p-t-17">
+											<button class="flex-c-m txt-s-105 cl0 bg10 size-a-43 hov-btn2 trans-04 p-rl-10">
+												Save Info
+											</button>
+										</div>
+									</div>
+									{% endwith %}
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock content %}

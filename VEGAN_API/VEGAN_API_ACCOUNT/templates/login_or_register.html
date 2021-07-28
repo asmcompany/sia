@@ -1,0 +1,136 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block head %}
+    <title>asd</title>
+{% endblock head %}
+
+{% block content %}
+        <div class="bg0 p-t-95 p-b-50">
+
+                <div class="container rtl">
+
+                    <div class="row">
+                        {% comment %} ==== login new user ===== {% endcomment %}
+                        <div class="col-md-6 p-b-50">
+                            <div class="p-r-15 p-rl-0-lg">
+                                <h4 class="txt-m-124 cl3 p-b-28">
+                                    ورود
+                                </h4>
+
+                                <form class="how-bor3 p-rl-30 p-tb-32" method="POST">
+
+                                    {% csrf_token %}
+
+                                    <div class="p-b-24">
+                                        {% comment %} label {% endcomment %}
+                                        <div class="txt-s-101 cl6 p-b-10">
+                                            {{login_form.username.label}}<span class="cl12">*</span>
+                                        </div>
+
+                                        {% comment %} input field {% endcomment %}
+                                        {{login_form.username}}
+
+                                        {% comment %} errors of the field {% endcomment %}
+                                        {% for error in login_form.username.errors %}
+                                        <span class="cl12 p-r-50">{{error}}</span>
+                                        {% endfor %}
+                                    </div>
+
+                                    <div class="p-b-24">
+                                        {% comment %} field label {% endcomment %}
+                                        <div class="txt-s-101 cl6 p-b-10">
+                                            {{login_form.user_password.label}} <span class="cl12">*</span>
+                                        </div>
+
+                                        {% comment %} input field {% endcomment %}
+                                        {{login_form.user_password}}
+
+                                        {% comment %} errors of the field {% endcomment %}
+                                        {% for error in login_form.user_password.errors %}
+                                        <span class="cl12 p-r-50">{{error}}</span>
+                                        {% endfor %}
+                                    </div>
+
+                                    <div class="flex-w flex-m p-t-15 p-b-10">
+                                        <button class="flex-c-m txt-s-105 cl0 bg10 size-a-39 hov-btn2 trans-04 p-rl-10 m-r-18">
+                                            ورود
+                                        </button>
+
+                                    </div>
+
+                                    <a href="#" class="txt-s-101 cl9 hov-cl10 trans-04">
+                                        رمز خود را فراموش کرده اید
+                                    </a>
+                                </form>
+                            </div>
+                        </div>
+
+                        {% comment %} ==== register new user ===== {% endcomment %}
+                        <div class="col-md-6 p-b-50">
+                            <div class="p-l-15 p-rl-0-lg">
+                                <h4 class="txt-m-124 cl3 p-b-28">
+                                    ثبت نام
+                                </h4>
+
+                                <form class="how-bor3 p-rl-30 p-t-32 p-b-66" method="POST">
+                                    {% csrf_token %}
+
+                                    <div class="p-b-24">
+                                        {% comment %} label {% endcomment %}
+                                        <div class="txt-s-101 cl6 p-b-10">
+                                            {{signup_form.user_email.label}}<span class="cl12">*</span>
+                                        </div>
+
+                                        {% comment %} input field {% endcomment %}
+                                        {{signup_form.user_email}}
+
+                                        {% comment %} errors of the field {% endcomment %}
+                                        {% for error in signup_form.user_email.errors %}
+                                        <span class="cl12 p-r-50">{{error}}</span>
+                                        {% endfor %}
+                                    </div>
+
+                                    <div class="p-b-24">
+                                        {% comment %} label {% endcomment %}
+                                        <div class="txt-s-101 cl6 p-b-10">
+                                            {{signup_form.user_password.label}} <span class="cl12">*</span>
+                                        </div>
+
+                                        {% comment %} input field {% endcomment %}
+                                        {{signup_form.user_password}}
+
+                                        {% comment %} errors of the field {% endcomment %}
+                                        {% for error in signup_form.user_password.errors %}
+                                        <span class="cl12 p-r-50">{{error}}</span>
+                                        {% endfor %}
+                                    </div>
+
+                                    <div class="p-b-24">
+                                        {% comment %} field label {% endcomment %}
+                                        <div class="txt-s-101 cl6 p-b-10">
+                                            {{signup_form.user_password_2.label}} <span class="cl12">*</span>
+                                        </div>
+
+                                        {% comment %} input field {% endcomment %}
+                                        {{signup_form.user_password_2}}
+
+                                        {% comment %} errors of the field {% endcomment %}
+                                        {% for error in signup_form.user_password_2.errors %}
+                                        <span class="cl12 p-r-50">{{error}}</span>
+                                        {% endfor %}
+                                    </div>
+
+                                    <div class="flex-w flex-m p-t-15">
+                                        <button type="submit" class="flex-c-m txt-s-105 cl0 bg10 size-a-39 hov-btn2 trans-04 p-rl-10 m-r-18">
+                                            ثبت نام
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+{% endblock content %}
